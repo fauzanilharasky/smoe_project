@@ -10,6 +10,7 @@ class Welcome extends CI_Controller {
 
     public function index()
     {
-        $this->load->view('layouts/main');
+		$data['content'] = 'home/index';
+        $this->load->view('layouts/main', $data);
     }
 }

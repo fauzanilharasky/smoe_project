@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title><?= isset($title) ? $title : 'Dashboard'; ?></title>
+  <title><?= isset($title) ? $title : 'INTERNSHIP'; ?></title>
 
   <!-- General CSS Files -->
   <link rel="stylesheet" href="<?= base_url('assets/modules/bootstrap/css/bootstrap.min.css') ?>">
@@ -25,7 +25,7 @@
 
       <!-- Main Content -->
       <div class="main-content">
-        <?= isset($content) ? $content : '' ?>
+         <?php $this->load->view('home/index'); ?>
       </div>
 
       <!-- Footer -->

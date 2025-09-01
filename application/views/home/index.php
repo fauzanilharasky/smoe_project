@@ -1,9 +1,13 @@
 <section class="container-xl my-5">
 	<div class="card shadow-sm">
-		<div class="card-header bg-primary text-white">
-			<h4 class="mb-0">Master Data List</h4>
-		</div>
+		<div class="card-header bg-primary text-white d-flex align-items-center justify-content-between">
+			<h4 class="mb-0 text-left flex-grow-1">Master Data List</h4>
+	<a href="<?= base_url('create'); ?>" class="btn btn-light btn-sm ">
+  <i class="fas fa-plus"></i> Tambah
+</a>
 
+		</div>
+		
 		<div class="card-body">
 			<div class="table-responsive">
 				<div class="d-flex flex-row">

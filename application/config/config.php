@@ -25,6 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $config['base_url'] = 'http://localhost/smoe_project/';
 
+
 /*
 |--------------------------------------------------------------------------
 | Index File

@@ -29,6 +29,10 @@ class ProjekModel extends CI_Model {
         return $this->db->where('id', $id)->delete($this->table);
     }
 
+    public function delete_by_internship($id) {
+        return $this->db->where('id_internship', $id)->delete($this->table);
+    }
+
     // join dengan internship
     public function get_with_internship() {
         $this->db->select('projek.*, master_internship.nama as nama_intern');

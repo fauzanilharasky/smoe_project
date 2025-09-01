@@ -9,6 +9,15 @@ class InternshipModel extends CI_Model {
         return $this->db->get($this->table)->result();
     }
 
+	public function get_by_id_with_departemen($id) {
+		$this->db->select('master_internship.*, departemen.nama as nama_departemen');
+		$this->db->from('master_internship');
+		$this->db->join('departemen', 'departemen.id = master_internship.id_dept', 'left');
+		$this->db->where('master_internship.id', $id);
+		return $this->db->get()->row_array();
+	}
+
+
     public function get_by_id($id) {
         return $this->db->get_where($this->table, ['id' => $id])->row();
     }

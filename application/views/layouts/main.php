@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=5, shrink-to-fit=no">
   <title><?= isset($title) ? $title : 'INTERNSHIP'; ?></title>
 
   <!-- General CSS Files -->

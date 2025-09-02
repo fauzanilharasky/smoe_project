@@ -180,9 +180,9 @@
 																</a>
 															</li>
 															<li>
-																<a class="dropdown-item text-danger" 
+																<a class="dropdown-item text-danger delete-intern" 
 																href="<?= site_url('index.php/internship/delete_intern/'.$data->id) ?>"
-																onclick="return confirm('Yakin hapus data ini?')">
+																data-id="<?= $data->id ?>">
 																<i class="bi bi-trash"></i> Delete
 																</a>
 															</li>
@@ -479,6 +479,35 @@
 					</script>
 				<?php endif; ?>
 
+				<script>
+				document.addEventListener('DOMContentLoaded', function() {
+					const deleteButtons = document.querySelectorAll('.delete-intern');
+
+					deleteButtons.forEach(button => {
+						button.addEventListener('click', function(e) {
+							e.preventDefault(); // hentikan link sementara
+
+							const url = this.getAttribute('href');
+
+							Swal.fire({
+								title: 'Yakin hapus data ini?',
+								text: "Data yang dihapus tidak bisa dikembalikan!",
+								icon: 'warning',
+								showCancelButton: true,
+								confirmButtonColor: '#d33',
+								cancelButtonColor: '#3085d6',
+								confirmButtonText: 'Ya, hapus!',
+								cancelButtonText: 'Batal'
+							}).then((result) => {
+								if (result.isConfirmed) {
+									// jika user setuju, arahkan ke link delete
+									window.location.href = url;
+								}
+							});
+						});
+					});
+				});
+				</script>
 
 				<script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
 				<script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.js"></script>

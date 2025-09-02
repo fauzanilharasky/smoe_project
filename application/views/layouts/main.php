@@ -128,14 +128,28 @@
 									</ul>
 								</td> -->
 
-												<td>
-													<button class="btn btn-sm btn-primary" data-bs-toggle="modal"
-														data-bs-target="#detailModal<?= $data->id ?>">
-														<i class="bi bi-info-circle"></i> detail
-													</button>
+												<td class="text-center">
+													<div class="dropdown">
+														<button class="btn btn-primary btn-sm" type="button" id="dropdownMenu<?= $data->id ?>"
+															data-bs-toggle="dropdown" aria-expanded="false">
+															<i class="bi bi-three-dots-vertical"></i>
+														</button>
+														<ul class="dropdown-menu" aria-labelledby="dropdownMenu<?= $data->id ?>">
+															<li>
+																<a class="dropdown-item" href="#" data-bs-toggle="modal"
+																data-bs-target="#detailModal<?= $data->id ?>">
+																<i class="bi bi-info-circle"></i> Detail
+																</a>
+															</li>
+															<li>
+																<a class="dropdown-item text-danger btn-delete" href="#"
+																data-id="<?= $data->id ?>">
+																<i class="bi bi-trash"></i> Delete
+																</a>
+															</li>
+														</ul>
+													</div>
 												</td>
-
-											</tr>
 										<?php endforeach; ?>
 									</tbody>
 								</table>

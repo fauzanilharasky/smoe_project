@@ -195,6 +195,7 @@
 					</div>
 				</section>
 
+				<!-- EDIT Modal -->
 				<div class="modal fade" id="editModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
 					aria-labelledby="staticBackdropLabel" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
@@ -349,109 +350,107 @@
 									</div>
 								</form>
 							</div>
-
-							<!-- Detail Modal -->
-							<?php foreach ($dataIntern as $indexIntern => $intern): ?>
-								<div class="modal fade" id="detailModal<?= $intern->id ?>" data-bs-backdrop="static"
-									data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-									<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h1 class="modal-title fs-5">Details intern <?= $intern->no_badge ?></h1>
-												<button type="button" class="btn-close" data-bs-dismiss="modal"
-													aria-label="Close"></button>
-											</div>
-											<div class="modal-body">
-												<table class="table table-striped table-hover border table-bordered align-middle">
-													<tr>
-														<th>No Badge</th>
-														<td>
-															<?= $intern->no_badge ?>
-														</td>
-													</tr>
-													<tr>
-														<th>Name</th>
-														<td>
-															<?= $intern->nama ?>
-														</td>
-													</tr>
-													<tr>
-														<th>Department</th>
-														<td>
-															<?= $intern->nama_departemen ?>
-														</td>
-													</tr>
-													<tr>
-														<th>Email</th>
-														<td>
-															<?= $intern->email ?>
-														</td>
-													</tr>
-													<tr>
-														<th>Address Company</th>
-														<td>
-															<?= $intern->alamat_pt ?>
-														</td>
-													</tr>
-													<tr>
-														<th>Project</th>
-														<td>
-															<ul class="list-unstyled mb-0 ps-2">
-																<?php
-																$InternProjek = $this->InternProjekModel->get_projects_by_internship($intern->id);
-																if (!empty($InternProjek)) {
-																	foreach ($InternProjek as $projekData) {
-																		echo '<li class="mb-1">• ' . htmlspecialchars($projekData->nama) . '</li>';
-																	}
-																} else {
-																	echo '<li>No records</li>';
-																}
-																?>
-															</ul>
-														</td>
-													</tr>
-													<!-- <tr>
-							<th>Logbook</th>
-							<td>
-								<ul class="list-unstyled mb-0 ps-2">
-										<?php
-										if (!empty($InternProjek)):
-											foreach ($InternProjek as $projekData): ?>
-												<li class="mb-1">
-													<strong><?= htmlspecialchars($projekData->nama ?? 'No records') ?></strong>
-													<?php
-													$logbookData = $this->LogbookModel->get_by_projek_and_intern_id($projekData->id, $intern->id);
-													if (!empty($logbookData)): ?>
-														<ul style="padding-left:15px;">
-															<?php foreach ($logbookData as $log): ?>
-																<li class="mb-1">
-																	<?= htmlspecialchars($log->title ?? 'No records') ?>
-																</li>
-															<?php endforeach; ?>
-														</ul>
-													<?php endif; ?>
-												</li>
-											<?php endforeach;
-										else: ?>
-											<li>No records</li>
-										<?php endif; ?>
-									</ul>
-							</td>
-						</tr> -->
-												</table>
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-											</div>
-										</div>
-									</div>
-								</div>
-							<?php endforeach ?>
-
 						</div>
-
 					</div>
 				</div>
+				
+				<!-- Detail Modal -->
+				<?php foreach ($dataIntern as $indexIntern => $intern): ?>
+					<div class="modal fade" id="detailModal<?= $intern->id ?>" data-bs-backdrop="static"
+						data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h1 class="modal-title fs-5">Details intern <?= $intern->no_badge ?></h1>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<table class="table table-striped table-hover border table-bordered align-middle">
+										<tr>
+											<th>No Badge</th>
+											<td>
+												<?= $intern->no_badge ?>
+											</td>
+										</tr>
+										<tr>
+											<th>Name</th>
+											<td>
+												<?= $intern->nama ?>
+											</td>
+										</tr>
+										<tr>
+											<th>Department</th>
+											<td>
+												<?= $intern->nama_departemen ?>
+											</td>
+										</tr>
+										<tr>
+											<th>Email</th>
+											<td>
+												<?= $intern->email ?>
+											</td>
+										</tr>
+										<tr>
+											<th>Address Company</th>
+											<td>
+												<?= $intern->alamat_pt ?>
+											</td>
+										</tr>
+										<tr>
+											<th>Project</th>
+											<td>
+												<ul class="list-unstyled mb-0 ps-2">
+													<?php
+													$InternProjek = $this->InternProjekModel->get_projects_by_internship($intern->id);
+													if (!empty($InternProjek)) {
+														foreach ($InternProjek as $projekData) {
+															echo '<li class="mb-1">• ' . htmlspecialchars($projekData->nama) . '</li>';
+														}
+													} else {
+														echo '<li>No records</li>';
+													}
+													?>
+												</ul>
+											</td>
+										</tr>
+										<!-- <tr>
+											<th>Logbook</th>
+											<td>
+												<ul class="list-unstyled mb-0 ps-2">
+														<?php
+														if (!empty($InternProjek)):
+															foreach ($InternProjek as $projekData): ?>
+																<li class="mb-1">
+																	<strong><?= htmlspecialchars($projekData->nama ?? 'No records') ?></strong>
+																	<?php
+																	$logbookData = $this->LogbookModel->get_by_projek_and_intern_id($projekData->id, $intern->id);
+																	if (!empty($logbookData)): ?>
+																		<ul style="padding-left:15px;">
+																			<?php foreach ($logbookData as $log): ?>
+																				<li class="mb-1">
+																					<?= htmlspecialchars($log->title ?? 'No records') ?>
+																				</li>
+																			<?php endforeach; ?>
+																		</ul>
+																	<?php endif; ?>
+																</li>
+															<?php endforeach;
+														else: ?>
+															<li>No records</li>
+														<?php endif; ?>
+													</ul>
+											</td>
+										</tr> -->
+									</table>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				<?php endforeach ?>
 
 				<!-- General JS Scripts -->
 				<script src="https://code.jquery.com/jquery-3.7.1.js"
@@ -626,17 +625,17 @@
 
 							// update name attribute untuk project agar unik
 							newForm.find(".project-container-tambah").html(`
-        <div class="d-flex align-items-center mb-2 project-item">
-            <select class="form-select me-2" name="project_name[${formIndex}][]">
-                <?php foreach ($dataAllProject as $project): ?>
-                    <option value="<?= $project->id ?>"><?= $project->nama ?></option>
-                <?php endforeach ?>
-            </select>
-            <button type="button" class="btn btn-sm btn-outline-danger remove-project">
-                <i class="bi bi-dash-circle"></i>
-            </button>
-        </div>
-    `);
+								<div class="d-flex align-items-center mb-2 project-item">
+									<select class="form-select me-2" name="project_name[${formIndex}][]">
+										<?php foreach ($dataAllProject as $project): ?>
+											<option value="<?= $project->id ?>"><?= $project->nama ?></option>
+										<?php endforeach ?>
+									</select>
+									<button type="button" class="btn btn-sm btn-outline-danger remove-project">
+										<i class="bi bi-dash-circle"></i>
+									</button>
+								</div>
+							`);
 
 							// tampilkan tombol hapus form
 							newForm.find(".remove-form").removeClass("d-none");
@@ -653,25 +652,20 @@
 						$(document).on("click", ".add-project-tambah", function() {
 							var formIndex = $(this).closest(".intern-form").index();
 							var projectItem = `
-        <div class="d-flex align-items-center mb-2 project-item">
-            <select class="form-select me-2" name="project_name[${formIndex}][]">
-                <?php foreach ($dataAllProject as $project): ?>
-                    <option value="<?= $project->id ?>"><?= $project->nama ?></option>
-                <?php endforeach ?>
-            </select>
-            <button type="button" class="btn btn-sm btn-outline-danger remove-project">
-                <i class="bi bi-dash-circle"></i>
-            </button>
-        </div>
-    `;
+								<div class="d-flex align-items-center mb-2 project-item">
+									<select class="form-select me-2" name="project_name[${formIndex}][]">
+										<?php foreach ($dataAllProject as $project): ?>
+											<option value="<?= $project->id ?>"><?= $project->nama ?></option>
+										<?php endforeach ?>
+									</select>
+									<button type="button" class="btn btn-sm btn-outline-danger remove-project">
+										<i class="bi bi-dash-circle"></i>
+									</button>
+								</div>
+							`;
 							$(this).closest(".intern-form").find(".project-container-tambah").append(projectItem);
 						});
-
-						// hapus project
-						$(document).on("click", ".remove-project", function() {
-							$(this).closest(".project-item").remove();
-						});
-
+						
 						// Tambah project baru
 						$(document).on("click", ".add-project", function() {
 							var section = $(this).closest(".intern-section");

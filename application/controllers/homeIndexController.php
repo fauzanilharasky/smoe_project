@@ -111,6 +111,22 @@ class HomeIndexController extends CI_Controller
 		]);
 	}
 
+	public function clinton()
+	{
+		$InternData = $this->InternshipModel->get_with_departemen();
+		$allProject = $this->ProjekModel->get_all();
+		$allDepartemen = $this->DepartemenModel->get_all();
+
+// 		
+		// Load layout utama, kirim konten ke dalamnya
+		$this->load->view('home/index', [
+			// 'content' => $content
+			'dataIntern' => $InternData,
+			'dataAllProject' => $allProject,
+			'dataAllDepartemen' => $allDepartemen,
+		]);
+	}
+
 	public function get_ajax_intern($id){
 		// Ambil data intern
 		$intern = $this->InternshipModel->get_by_id_with_departemen($id);

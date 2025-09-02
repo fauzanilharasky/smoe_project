@@ -52,5 +52,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'HomeIndexController';
 $route['internship/get_intern_detail/(:num)'] = 'HomeIndexController/get_ajax_intern/$1';
 $route['internship/update_intern'] = 'HomeIndexController/debug_intern_json';
+$route['clinton'] = 'HomeIndexController/clinton';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

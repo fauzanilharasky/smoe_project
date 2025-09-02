@@ -96,6 +96,11 @@
 											<i class="bi bi-pencil"></i> Edit
 										</button>
 									</div>
+									<div class="ms-3">
+										 <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tambahModal">
+        <i class="bi bi-plus"></i> Tambah
+    </button>
+									</div>
 								</div>
 								<table
 									class="dataTable table table-striped table-hover border table-bordered align-middle">
@@ -261,6 +266,89 @@
 					</div>
 				</div>
 
+				<!-- Modal Tambah Data -->
+				<div class="modal fade" id="tambahModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="tambahModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered ">
+        <div class="modal-content">
+          <div class="modal-header d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center">
+        <h1 class="modal-title fs-5 mb-0">Tambah Data</h1>
+        <!-- tombol tambah form -->
+        <button type="button" id="add-form" class="btn btn-outline-primary btn-sm ms-3">
+            <i class="bi bi-plus-circle"></i> Tambah Form Baru
+        </button>
+    </div>
+
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+
+    <div class="modal-body">
+                <form id="tambahForm" action="<?= base_url('index.php/internship/insert_intern') ?>" method="post">
+
+                    <div id="form-container">
+                        <!-- blok form pertama -->
+                        <div class="intern-form border rounded p-3 mb-3">
+                            <div class="d-flex justify-content-between">
+                                <h5>Form 1</h5>
+                                <button type="button" class="btn btn-sm btn-outline-danger remove-form d-none">
+                                    <i class="bi bi-trash"></i> Hapus
+                                </button>
+                            </div>
+                            <div class="mb-2">
+                                <label>No Badge</label>
+                                <input type="text" name="no_badge[]" class="form-control">
+                            </div>
+                            <div class="mb-2">
+                                <label>Name</label>
+                                <input type="text" name="name[]" class="form-control">
+                            </div>
+                            <div class="mb-2">
+                                <label>Department</label>
+                                <select name="department[]" class="form-select">
+                                    <?php foreach ($dataAllDepartemen as $dept): ?>
+                                        <option value="<?= $dept->id ?>"><?= $dept->nama ?></option>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
+                            <div class="mb-2">
+                                <label>Email</label>
+                                <input type="email" name="email[]" class="form-control">
+                            </div>
+                            <div class="mb-2">
+                                <label>Address Company</label>
+                                <input type="text" name="address_company[]" class="form-control">
+                            </div>
+                            <div class="mb-2">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <label>Project Name</label>
+                                    <button type="button" class="btn btn-sm btn-outline-success add-project-tambah">
+                                        <i class="bi bi-plus-circle"></i> Add Project
+                                    </button>
+                                </div>
+                                <div class="project-container-tambah">
+                                    <div class="d-flex align-items-center mb-2 project-item">
+                                        <select class="form-select me-2" name="project_name[0][]">
+                                            <?php foreach ($dataAllProject as $project): ?>
+                                                <option value="<?= $project->id ?>"><?= $project->nama ?></option>
+                                            <?php endforeach ?>
+                                        </select>
+                                        <button type="button" class="btn btn-sm btn-outline-danger remove-project">
+                                            <i class="bi bi-dash-circle"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Simpan</button>
+                    </div>
+                </form>
+            </div>
+			
 				<!-- Detail Modal -->
 				<?php foreach ($dataIntern as $indexIntern => $intern): ?>
 					<div class="modal fade" id="detailModal<?= $intern->id ?>" data-bs-backdrop="static"
@@ -523,6 +611,65 @@
 					});
 				}
 			});
+
+$(document).on("click", "#add-form", function () {
+    var formIndex = $(".intern-form").length; // hitung form yang ada
+    var newForm = $(".intern-form").first().clone();
+
+    // reset input value
+    newForm.find("input").val("");
+    newForm.find("select").val("");
+
+    // update judul form (Form 1, Form 2, dst)
+    newForm.find("h5").text("Form " + (formIndex + 1));
+
+    // update name attribute untuk project agar unik
+    newForm.find(".project-container-tambah").html(`
+        <div class="d-flex align-items-center mb-2 project-item">
+            <select class="form-select me-2" name="project_name[${formIndex}][]">
+                <?php foreach ($dataAllProject as $project): ?>
+                    <option value="<?= $project->id ?>"><?= $project->nama ?></option>
+                <?php endforeach ?>
+            </select>
+            <button type="button" class="btn btn-sm btn-outline-danger remove-project">
+                <i class="bi bi-dash-circle"></i>
+            </button>
+        </div>
+    `);
+
+    // tampilkan tombol hapus form
+    newForm.find(".remove-form").removeClass("d-none");
+
+    $("#form-container").append(newForm);
+});
+
+// hapus form internship
+$(document).on("click", ".remove-form", function () {
+    $(this).closest(".intern-form").remove();
+});
+
+// tambah project di dalam form tertentu
+$(document).on("click", ".add-project-tambah", function () {
+    var formIndex = $(this).closest(".intern-form").index();
+    var projectItem = `
+        <div class="d-flex align-items-center mb-2 project-item">
+            <select class="form-select me-2" name="project_name[${formIndex}][]">
+                <?php foreach ($dataAllProject as $project): ?>
+                    <option value="<?= $project->id ?>"><?= $project->nama ?></option>
+                <?php endforeach ?>
+            </select>
+            <button type="button" class="btn btn-sm btn-outline-danger remove-project">
+                <i class="bi bi-dash-circle"></i>
+            </button>
+        </div>
+    `;
+    $(this).closest(".intern-form").find(".project-container-tambah").append(projectItem);
+});
+
+// hapus project
+$(document).on("click", ".remove-project", function () {
+    $(this).closest(".project-item").remove();
+});
 
 			// Tambah project baru
 			$(document).on("click", ".add-project", function () {

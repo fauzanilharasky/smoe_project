@@ -94,7 +94,7 @@
 												<td class="d-none d-lg-table-cell">
 													<ul class="list-unstyled mb-0 ps-2">
 														<?php
-														$projekIntern = $this->ProjekModel->get_by_internship_id($data->id);
+														$projekIntern = $this->InternProjekModel->get_projects_by_internship($data->id);
 														if (!empty($projekIntern)) {
 															foreach ($projekIntern as $projek) {
 																echo '<li class="mb-1">• ' . htmlspecialchars($projek->nama) . '</li>';
@@ -358,7 +358,7 @@
 											<td>
 												<ul class="list-unstyled mb-0 ps-2">
 													<?php
-													$InternProjek = $this->ProjekModel->get_by_internship_id($intern->id);
+													$InternProjek = $this->InternProjekModel->get_projects_by_internship($intern->id);
 													if (!empty($InternProjek)) {
 														foreach ($InternProjek as $projekData) {
 															echo '<li class="mb-1">• ' . htmlspecialchars($projekData->nama) . '</li>';

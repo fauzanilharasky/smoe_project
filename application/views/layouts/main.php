@@ -30,6 +30,51 @@
 	<?php if (isset($css)) echo $css; ?>
 </head>
 
+<nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm p-3 mb-5 bg-body-tertiary rounded fixed">
+  <div class="container-fluid">
+    <a class="navbar-brand mt-2 mt-lg-0 ml-4" href="">
+        <img 
+		  class=""
+          src="data:image/png;base64,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"
+          height="45"
+          alt="	smoe Logo"
+          loading="lazy"
+		  style="background: transparent; mix-blend-mode: multiply;"
+        />
+      </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active text-primary" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Options</a>
+        </li>
+        <!-- <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li> -->
+        
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+        <button class="btn btn-outline-primary" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+<!-- Navbar -->
+
 <body>
 	<div id="app">
 		<div class="main-wrapper">
@@ -89,7 +134,7 @@
 												<td class="d-none d-lg-table-cell">
 													<ul class="list-unstyled mb-0 ps-2">
 														<?php
-														$projekIntern = $this->ProjekModel->get_by_internship_id($data->id);
+														$projekIntern = $this->InternProjekModel->get_projects_by_internship($data->id);
 														if (!empty($projekIntern)) {
 															foreach ($projekIntern as $projek) {
 																echo '<li class="mb-1">• ' . htmlspecialchars($projek->nama) . '</li>';
@@ -264,7 +309,7 @@
 											<td>
 												<ul class="list-unstyled mb-0 ps-2">
 													<?php
-													$InternProjek = $this->ProjekModel->get_by_internship_id($intern->id);
+													$InternProjek = $this->InternProjekModel->get_projects_by_internship($intern->id);
 													if (!empty($InternProjek)) {
 														foreach ($InternProjek as $projekData) {
 															echo '<li class="mb-1">• ' . htmlspecialchars($projekData->nama) . '</li>';
@@ -327,17 +372,23 @@
 	<script
 		src="https://cdn.datatables.net/v/bs5/jq-3.7.0/jszip-3.10.1/dt-1.13.6/b-2.4.1/b-html5-2.4.1/b-print-2.4.1/r-2.5.0/datatables.min.js"></script>
 
+	<?php 
+	$notifikasi = $this->session->flashdata('notifikasi');
+	$type = $this->session->flashdata('type');
+	?>
+
 	<?php if (!empty($notifikasi)): ?>
-		<script>
-			Swal.fire({
-				text: '<?= $notifikasi ?>',
-				icon: '<?= $type ?>',
-				confirmButtonText: 'OK',
-				showCloseButton: true,
-				timer: 2000,
-			})
-		</script>
+	<script>
+		Swal.fire({
+			text: '<?= $notifikasi ?>',
+			icon: '<?= $type ?>',
+			confirmButtonText: 'OK',
+			showCloseButton: true,
+			timer: 2000,
+		})
+	</script>
 	<?php endif; ?>
+
 
 	<script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.js"></script>
@@ -387,9 +438,10 @@
 							dataType: "json",
 							success: function (res) {
 								var intern = res.intern;
-								console.log(intern)
+								console.log('Intern: ',intern)
 								
 								var projects = res.projects;
+								console.log('Projek: ',projects)
 
 								var section = $(`
 									<div class="intern-section border rounded p-3 mb-3">
@@ -524,6 +576,14 @@
     </script>
 
 	<?php if (isset($js)) echo $js; ?>
+
+	<footer class="text-center text-lg-start bg-primary">
+  
+  <div class="text-center text-white p-2" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2025 Copyright:
+    <a class=" text-white-50" href="https://github.com/fauzanilharasky/smoe_project">SMOE Project</a>
+  </div>
+</footer>
 </body>
 
 </html>

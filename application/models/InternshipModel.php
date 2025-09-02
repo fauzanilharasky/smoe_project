@@ -11,9 +11,9 @@ class InternshipModel extends CI_Model {
 
 	public function get_by_id_with_departemen($id) {
 		$this->db->select('master_internship.*, departemen.nama as nama_departemen');
-		$this->db->from('master_internship');
+        $this->db->from($this->table);
 		$this->db->join('departemen', 'departemen.id = master_internship.id_dept', 'left');
-		$this->db->where('master_internship.id', $id);
+		$this->db->where('master_internship.id', $id)->order_by('master_internship.id', 'ASC');
 		return $this->db->get()->row_array();
 	}
 
@@ -38,7 +38,7 @@ class InternshipModel extends CI_Model {
     public function get_with_departemen() {
         $this->db->select('master_internship.*, departemen.nama as nama_departemen');
         $this->db->from($this->table);
-        $this->db->join('departemen', 'departemen.id = master_internship.id_dept', 'left');
+        $this->db->join('departemen', 'departemen.id = master_internship.id_dept', 'left')->order_by('master_internship.id', 'ASC');
         return $this->db->get()->result();
     }
 }

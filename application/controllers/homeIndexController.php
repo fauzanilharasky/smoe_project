@@ -9,6 +9,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @property ProjekModel $ProjekModel
  * @property LogbookModel $LogbookModel
  * @property DepartemenModel $DepartemenModel
+ * @property InternProjekModel $InternProjekModel
  */
 class HomeIndexController extends CI_Controller
 {
@@ -20,6 +21,8 @@ class HomeIndexController extends CI_Controller
 		$this->load->model('ProjekModel');
 		$this->load->model('LogbookModel');
 		$this->load->model('DepartemenModel');
+		$this->load->model('InternProjekModel');
+		 $this->load->library('session');
 	}
 
 	public function index()
@@ -132,7 +135,7 @@ class HomeIndexController extends CI_Controller
 		$intern = $this->InternshipModel->get_by_id_with_departemen($id);
 
 		// Ambil project-projectnya
-		$projects = $this->ProjekModel->get_by_internship_id($id);
+		$projects = $this->InternProjekModel->get_projects_by_internship($id);
 
 		echo json_encode([
 			'intern' => $intern,
@@ -154,45 +157,43 @@ class HomeIndexController extends CI_Controller
 			foreach ($id_internships as $i => $id_internship) {
 				// 1. update data internship
 				$dataIntern = [
-					'no_badge'      => $no_badges[$i],
-					'nama'          => $names[$i],
-					'id_dept '=> $departments[$i],
-					'email'         => $emails[$i],
-					'alamat_pt'     => $addressCompanies[$i],
+					'no_badge'   => $no_badges[$i],
+					'nama'       => $names[$i],
+					'id_dept'    => $departments[$i],
+					'email'      => $emails[$i],
+					'alamat_pt'  => $addressCompanies[$i],
 				];
 				$this->InternshipModel->update($id_internship, $dataIntern);
 
-				// 2. update relasi project
+				// 2. update relasi project via pivot
 				if (isset($projects[$id_internship])) {
-					// hapus project lama dulu
-					$this->ProjekModel->delete_by_internship($id_internship);
+					// hapus semua relasi lama
+					$this->InternProjekModel->delete_by_internship($id_internship);
 
-					// insert project baru
+					// insert relasi baru
+					$dataBatch = [];
 					foreach ($projects[$id_internship] as $projId) {
-						$this->ProjekModel->insert([
+						$dataBatch[] = [
 							'id_internship' => $id_internship,
-							'id'    => $projId,
-							'nama' => 'test'
-						]);
+							'id_projek'    => $projId,
+						];
+					}
+					if (!empty($dataBatch)) {
+						$this->InternProjekModel->insert_batch($dataBatch);
 					}
 				}
 			}
 
-			echo json_encode(['status' => 'success']);
-			
 			$this->session->set_flashdata('notifikasi', 'Intern data updated successfully!');
-        	$this->session->set_flashdata('type', 'success');
-			
-			redirect('homeIndexController/index');
+			$this->session->set_flashdata('type', 'success');
+			redirect('/index.php');
 		} else {
-			echo json_encode(['status' => 'error', 'message' => 'No data submitted']);
-			
-			$this->session->set_flashdata('notifikasi', 'No data submitted');
-        	$this->session->set_flashdata('type', 'error');
-			
-			redirect('homeIndexController/index');
+			// $this->session->set_flashdata('notifikasi', 'No data submitted');
+			// $this->session->set_flashdata('type', 'error');
+			redirect('/index.php');
 		}
 	}
+
 
 	public function debug_intern_json()
 	{

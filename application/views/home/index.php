@@ -156,10 +156,10 @@
         <div class="modal-content">
           <div class="modal-header d-flex align-items-center justify-content-between">
     <div class="d-flex align-items-center">
-        <h1 class="modal-title fs-5 mb-0">Tambah Data</h1>
+        <h1 class="modal-title fs-5 mb-0">Add Data</h1>
         <!-- tombol tambah form -->
         <button type="button" id="add-form" class="btn btn-outline-primary btn-sm ms-3">
-            <i class="bi bi-plus-circle"></i> Tambah Form Baru
+            <i class="bi bi-plus-circle"></i> Add New Form	
         </button>
     </div>
 

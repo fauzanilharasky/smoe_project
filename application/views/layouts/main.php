@@ -181,7 +181,7 @@
 															</li>
 															<li>
 																<a class="dropdown-item text-danger" 
-																href="<?= site_url('internship/delete_intern/'.$data->id) ?>"
+																href="<?= site_url('index.php/internship/delete_intern/'.$data->id) ?>"
 																onclick="return confirm('Yakin hapus data ini?')">
 																<i class="bi bi-trash"></i> Delete
 																</a>

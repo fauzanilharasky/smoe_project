@@ -167,8 +167,9 @@
 
 												<td class="text-center">
 													<div class="dropdown">
-														<button class="btn btn-primary btn-sm" type="button" id="dropdownMenu<?= $data->id ?>"
-															data-bs-toggle="dropdown" aria-expanded="false">
+														<button class="btn btn-light btn-sm" type="button" 
+																id="dropdownMenu<?= $data->id ?>"
+																data-bs-toggle="dropdown" aria-expanded="false">
 															<i class="bi bi-three-dots-vertical"></i>
 														</button>
 														<ul class="dropdown-menu" aria-labelledby="dropdownMenu<?= $data->id ?>">
@@ -179,8 +180,9 @@
 																</a>
 															</li>
 															<li>
-																<a class="dropdown-item text-danger btn-delete" href="#"
-																data-id="<?= $data->id ?>">
+																<a class="dropdown-item text-danger" 
+																href="<?= site_url('internship/delete_intern/'.$data->id) ?>"
+																onclick="return confirm('Yakin hapus data ini?')">
 																<i class="bi bi-trash"></i> Delete
 																</a>
 															</li>
@@ -665,7 +667,7 @@
 							`;
 							$(this).closest(".intern-form").find(".project-container-tambah").append(projectItem);
 						});
-						
+
 						// Tambah project baru
 						$(document).on("click", ".add-project", function() {
 							var section = $(this).closest(".intern-section");

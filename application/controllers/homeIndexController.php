@@ -193,7 +193,6 @@ if (!empty($projects[$i])) {
     redirect('/index.php');
 }
 
-
 	public function update_intern()
 	{
 		$id_internships   = $this->input->post('id_internship'); // array
@@ -245,6 +244,27 @@ if (!empty($projects[$i])) {
 		}
 	}
 
+	public function delete_intern($id) {
+    // $this->load->model('InternshipModel');
+
+    // cek data dulu
+    $record = $this->InternshipModel->get_by_id_with_departemen($id);
+    if ($record) {
+        $deleted = $this->InternshipModel->delete($id);
+        if ($deleted) {
+            $this->session->set_flashdata('notifikasi', 'Data intern berhasil dihapus!');
+            $this->session->set_flashdata('type', 'success');
+        } else {
+            $this->session->set_flashdata('notifikasi', 'Gagal menghapus data! Cek relasi database.');
+            $this->session->set_flashdata('type', 'error');
+        }
+    } else {
+        $this->session->set_flashdata('notifikasi', 'Data intern tidak ditemukan!');
+        $this->session->set_flashdata('type', 'error');
+    }
+
+    redirect('/index.php'); // atau halaman list intern
+}
 
 	public function debug_intern_json()
 	{

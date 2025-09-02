@@ -60,4 +60,6 @@ class InternProjekModel extends CI_Model
         $this->db->where('ip.id_project', $id_project);
         return $this->db->get()->result();
     }
+
+    
 }

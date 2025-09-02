@@ -114,6 +114,22 @@ class HomeIndexController extends CI_Controller
 		]);
 	}
 
+	public function clinton()
+	{
+		$InternData = $this->InternshipModel->get_with_departemen();
+		$allProject = $this->ProjekModel->get_all();
+		$allDepartemen = $this->DepartemenModel->get_all();
+
+// 		
+		// Load layout utama, kirim konten ke dalamnya
+		$this->load->view('home/index', [
+			// 'content' => $content
+			'dataIntern' => $InternData,
+			'dataAllProject' => $allProject,
+			'dataAllDepartemen' => $allDepartemen,
+		]);
+	}
+
 	public function get_ajax_intern($id){
 		// Ambil data intern
 		$intern = $this->InternshipModel->get_by_id_with_departemen($id);
@@ -126,6 +142,57 @@ class HomeIndexController extends CI_Controller
 			'projects' => $projects
 		]);
 	}
+//Create Function
+
+public function insert_intern()
+{
+    $no_badges        = $this->input->post('no_badge');
+    $names            = $this->input->post('name');
+    $departments      = $this->input->post('department');
+    $emails           = $this->input->post('email');
+    $addressCompanies = $this->input->post('address_company');
+    $projects         = $this->input->post('project_name');
+
+    if (!empty($no_badges)) {
+        foreach ($no_badges as $i => $no_badge) {
+            $dataIntern = [
+                'no_badge'   => $no_badges[$i],
+                'nama'       => $names[$i],
+                'id_dept'    => $departments[$i],
+                'email'      => $emails[$i],
+                'alamat_pt'  => $addressCompanies[$i],
+            ];
+
+            // insert ke master_internship
+$this->InternshipModel->insert($dataIntern);
+$internId = $this->db->insert_id(); // ini akan ambil id terakhir dari sequence
+
+// insert relasi ke intern_projek
+if (!empty($projects[$i])) {
+    $dataBatch = [];
+    foreach ($projects[$i] as $projId) {
+        $dataBatch[] = [
+            'id_internship' => $internId,
+            'id_projek'     => $projId,
+        ];
+    }
+    if (!empty($dataBatch)) {
+        $this->InternProjekModel->insert_batch($dataBatch);
+    }
+}
+
+        }
+
+        $this->session->set_flashdata('notifikasi', 'Intern berhasil ditambahkan!');
+        $this->session->set_flashdata('type', 'success');
+    } else {
+        $this->session->set_flashdata('notifikasi', 'Tidak ada data yang dikirim');
+        $this->session->set_flashdata('type', 'error');
+    }
+
+    redirect('/index.php');
+}
+
 
 	public function update_intern()
 	{
@@ -135,7 +202,7 @@ class HomeIndexController extends CI_Controller
 		$departments      = $this->input->post('department');
 		$emails           = $this->input->post('email');
 		$addressCompanies = $this->input->post('address_company');
-		$projects         = $this->input->post('project_name'); // bentuknya: project_name[id_internship][]
+		$projects         = $this->input->post('project_name'); 
 
 		if ($id_internships) {
 			foreach ($id_internships as $i => $id_internship) {
